@@ -9,12 +9,12 @@ from __future__ import print_function, division, absolute_import
 
 import os
 
-from tpDcc.libs.unittests.core import consts, unittest, settings
+from tpDcc.libs.unittests.core import consts, unittestcase, settings
 
 import maya.cmds
 
 
-class MayaTestCase(unittest.BaseUnitTestCase, object):
+class MayaTestCase(unittestcase.BaseUnitTestCase, object):
 
     """
     Base class for unit test cases run in Maya
