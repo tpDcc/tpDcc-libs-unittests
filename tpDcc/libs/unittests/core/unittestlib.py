@@ -18,10 +18,10 @@ from tpDcc.libs.python import python
 
 from tpDcc.libs.unittests.core import settings, result
 
-LIB_ID = 'tpDcc-libs-unittest'
+LIB_ID = 'tpDcc-libs-unittests'
 LIB_ENV = LIB_ID.replace('-', '_').upper()
 
-LOGGER = logging.getLogger('tpDcc-libs-unittest')
+LOGGER = logging.getLogger('tpDcc-libs-unittests')
 
 
 class UnitTestsLib(library.DccLibrary, object):
