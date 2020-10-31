@@ -18,11 +18,18 @@ from tpDcc.libs.unittests.core import consts
 class MetaUnitTestResult(type):
 
     def __call__(cls, *args, **kwargs):
+        as_class = kwargs.pop('as_class', False)
         if dcc.is_maya():
-            from tpDcc.libs.unittest.dccs.maya import result
-            return type.__call__(result.MayaUnitTestResult, *args, **kwargs)
+            from tpDcc.libs.unittests.dccs.maya import result
+            if as_class:
+                return result.MayaUnitTestResult
+            else:
+                return type.__call__(result.MayaUnitTestResult, *args, **kwargs)
         else:
-            return type.__call__(BaseUnitTestResult, *args, **kwargs)
+            if as_class:
+                return BaseUnitTestResult
+            else:
+                return type.__call__(BaseUnitTestResult, *args, **kwargs)
 
 
 class BaseUnitTestResult(unittest.TextTestResult):
@@ -31,8 +38,12 @@ class BaseUnitTestResult(unittest.TextTestResult):
     """
 
     def __init__(self, stream, descriptions, verbosity):
-        super(BaseUnitTestResult, self).__init__ (stream, descriptions, verbosity)
+        super(BaseUnitTestResult, self).__init__(stream, descriptions, verbosity)
         self._successes = list()
+
+    @property
+    def successes(self):
+        return self._successes
 
     def startTestRun(self):
         """

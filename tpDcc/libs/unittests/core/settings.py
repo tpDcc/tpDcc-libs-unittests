@@ -22,7 +22,7 @@ class MetaUnitTestSettings(type):
     def __call__(cls, *args, **kwargs):
         if cls._instance is None:
             if dcc.is_maya():
-                from tpDcc.libs.unittest.dccs.maya import settings
+                from tpDcc.libs.unittests.dccs.maya import settings
                 cls._instance = type.__call__(settings.MayaUnitTestSettings, *args, **kwargs)
             else:
                 cls._instance = type.__call__(BaseUnitTestSettings, *args, **kwargs)

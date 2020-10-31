@@ -19,11 +19,18 @@ from tpDcc.libs.unittests.core import settings
 
 class MetaUnitTestCase(type):
     def __call__(cls, *args, **kwargs):
+        as_class = kwargs.get('as_class', False)
         if dcc.is_maya():
-            from tpDcc.libs.unittest.dccs.maya import unittest
-            return type.__call__(unittest.MayaUnitTestCase, *args, **kwargs)
+            from tpDcc.libs.unittests.dccs.maya import unittest
+            if as_class:
+                return unittest.MayaUnitTestCase
+            else:
+                return type.__call__(unittest.MayaUnitTestCase, *args, **kwargs)
         else:
-            return type.__call__(BaseUnitTestCase, *args, **kwargs)
+            if as_class:
+                return BaseUnitTestCase
+            else:
+                return type.__call__(BaseUnitTestCase, *args, **kwargs)
 
 
 class BaseUnitTestCase(unittest.TestCase):

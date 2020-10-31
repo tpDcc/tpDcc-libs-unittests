@@ -17,7 +17,7 @@ from tpDcc.libs.unittests.core import settings, result
 from tpDcc.libs.unittests.dccs.maya import scripteditor
 
 
-class MayaTestResult(result.BaseUnitTestResult, object):
+class MayaUnitTestResult(result.BaseUnitTestResult, object):
     """
     Customize Maya the test result so we can do things like do a file new between each test and suppress script
     editor output
@@ -28,7 +28,7 @@ class MayaTestResult(result.BaseUnitTestResult, object):
         Called before any tests are run
         """
 
-        super(MayaTestResult, self).startTestRun()
+        super(MayaUnitTestResult, self).startTestRun()
 
         scripteditor.MayaScriptEditorState.suppress_output()
         if settings.UnitTestSettings().buffer_output:
@@ -48,14 +48,14 @@ class MayaTestResult(result.BaseUnitTestResult, object):
         if settings.UnitTestSettings().delete_files and os.path.exists(settings.UnitTestSettings().temp_dir):
             shutil.rmtree(settings.UnitTestSettings().temp_dir)
 
-        super(MayaTestResult, self).stopTestRun()
+        super(MayaUnitTestResult, self).stopTestRun()
 
     def stopTest(self, test):
         """
         Called after an individual test is run
         @param test: TestCase that just ran
         """
-        super(MayaTestResult, self).stopTest(test)
+        super(MayaUnitTestResult, self).stopTest(test)
 
         if settings.UnitTestSettings().file_new:
             maya.cmds.file(f=True, new=True)
@@ -66,5 +66,5 @@ class MayaTestResult(result.BaseUnitTestResult, object):
         @param test: Testase that sucessfully ran.
         """
 
-        super(MayaTestResult, self).addSuccess(test)
+        super(MayaUnitTestResult, self).addSuccess(test)
         self._successes.append(test)

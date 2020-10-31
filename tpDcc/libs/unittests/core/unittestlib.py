@@ -93,9 +93,7 @@ def get_tests(directories=None, test=None, test_suite=None):
     :return: unittest.TestSuite
     """
 
-    if directories is None:
-        directories = list()
-
+    directories = python.force_list(directories)
     directories.extend(python.force_list(load_default_unit_tests()))
 
     # Populate a TestSuite with all the tests
@@ -163,4 +161,5 @@ def add_to_path(path):
     if os.path.exists(path) and path not in sys.path:
         sys.path.insert(0, path)
         return True
+
     return False
