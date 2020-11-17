@@ -52,7 +52,7 @@ def run_tests_from_command_line():
     real_sys_path = [os.path.realpath(p) for p in sys.path]
     python_path = os.environ.get('PYTHONPATH', '')
     for p in python_path.split(os.pathsep):
-        p = os.path.realpath(p) # Make sure symbolic links are resolved
+        p = os.path.realpath(p)     # Make sure symbolic links are resolved
         if p not in real_sys_path:
             sys.path.insert(0, p)
 

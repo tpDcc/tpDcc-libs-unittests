@@ -1,36 +1,61 @@
 language: python
-before_install:
-- pip install pycodestyle
-- pip install pytest
-- pip install pytest-cov
-- pip install coveralls
-- pip install sphinx
-- pip install sphinx_rtd_theme
-install:
-- pip install -r requirements.txt
-- python setup.py install
-script:
-- find . -name \*.py -exec pycodestyle --exclude */externals/* --max-line-length=120
-  --ignore=E402 {} +
-- pytest --cov=tpDcc
-- sphinx-apidoc -f -e -o docs/sphinx tpDcc
-- sphinx-build -M html ./docs/sphinx ./
-after_success:
-- coveralls
-- cd html && touch .nojekyll && cd ../
-deploy:
-  - provider: pages
-    skip_cleanup: true
-    github_token: "$GITHUB_TOKEN"
-    keep_history: true
-    local_dir: html
-    on:
-      branch: master
-  - provider: pypi
-    skip_cleanup: true
-    user: tpoveda
-    password:
-      secure: l7ZEjkqCvKZH7Rb2LUp/Tb3F3EDasZvY07sMhx7D0/DecD9rxn5U+SDwl9K8bSsY56b+FCq1wiq5rCD6+TwgLfoFvWp1RP1hzJA8ij/AiE486yU/Isto3TrAeM0IAUAPp6Wb5ppJ4c+kHVjWBnWHzLw6+Sk2t00VHNl8AXt1J7ETT/P4H5s7U6VMZif+THl+vVEdmISVFHR/wz6DO5LU5CzEUgqdw4oTSd2I7zIokZttVs1ByTZPwmsMQt0fVZlulkBdb0f/RyhcLYoBVj/SeHFL8Z4Gtt09rWdZzm4pZmt6JU6e+++V8kUveuvewYka7KE8aLtIVkIcqtLs/Xge7CklqRM2V04aUiCa7VEHXjTyJPidPoJY6Ler3RP2CB4KkkHkkyD5TLctVbF2PxJLTJVhnuYyHn2bZWueYUw5btIhJC3rCh46O1uCkzw47LchzMWFy7rJwIMAo2UHIcSEswVwHRrOmcewYttgvuatjDXKKb010Y48yIrMz180vL730ZcSnZCSVByFueJkzCbOFUhABnbxQXqF91ZohJJULNecUFAzKSA55LTpJj76R4u+851D1qmwi1g5hl8Mw7V4XHPnkI3fWZ1pwJ2LqtcX4mlTzUfyw/Z5AN/Qe+X+X6XjkdjlG9G0DMZlIvScfHWbiC19qob1g82wDU2GaAlk4cA=
-    on:
-      branch: master
-      tags: true
+services:
+  docker
+python:
+  - "3.7"
+
+jobs:
+  include:
+    - stage: standalone
+      name: "Code Style + Unit Tests (standalone)"
+      before_install:
+        - pip install pycodestyle
+        - pip install pytest
+        - pip install pytest-cov
+        - pip install coveralls
+      script:
+        - find . -name \*.py -exec pycodestyle --exclude */res.py --max-line-length=120 --ignore=E402 {} +
+        - pytest --cov=tpDcc
+      after_success:
+        - coveralls
+    - stage: maya2019
+      name: "Unit Tests (Maya 2019)"
+      if: tag =~ ^releases/*
+      before_install:
+        - docker pull mottosso/maya:2019
+      script:
+        - cd tests
+        - docker run mottosso/maya:2019 /usr/autodesk/maya/bin/mayapy -m unittest discover -v
+    - stage: docs
+      name: "Build Documentation"
+      if: tag =~ ^releases/*
+      before_install:
+        - pip install sphinx
+        - pip install sphinx_rtd_theme
+      script:
+        - sphinx-apidoc -f -e -o docs/sphinx tpDcc
+        - sphinx-build -M html ./docs/sphinx ./
+      after_success:
+        - cd html && touch .nojekyll && cd ../
+      deploy:
+        - provider: pages
+          skip_cleanup: true
+          github_token: "$GITHUB_TOKEN"
+          keep_history: true
+          local_dir: html
+          on:
+            branch: main
+            tags: true
+    - stage: deploy
+      name: "Deploy"
+      if: tag =~ ^releases/*
+      script: skip
+      deploy:
+        - provider: pypi
+          skip_cleanup: true
+          user: tpoveda
+          password:
+            secure: l7ZEjkqCvKZH7Rb2LUp/Tb3F3EDasZvY07sMhx7D0/DecD9rxn5U+SDwl9K8bSsY56b+FCq1wiq5rCD6+TwgLfoFvWp1RP1hzJA8ij/AiE486yU/Isto3TrAeM0IAUAPp6Wb5ppJ4c+kHVjWBnWHzLw6+Sk2t00VHNl8AXt1J7ETT/P4H5s7U6VMZif+THl+vVEdmISVFHR/wz6DO5LU5CzEUgqdw4oTSd2I7zIokZttVs1ByTZPwmsMQt0fVZlulkBdb0f/RyhcLYoBVj/SeHFL8Z4Gtt09rWdZzm4pZmt6JU6e+++V8kUveuvewYka7KE8aLtIVkIcqtLs/Xge7CklqRM2V04aUiCa7VEHXjTyJPidPoJY6Ler3RP2CB4KkkHkkyD5TLctVbF2PxJLTJVhnuYyHn2bZWueYUw5btIhJC3rCh46O1uCkzw47LchzMWFy7rJwIMAo2UHIcSEswVwHRrOmcewYttgvuatjDXKKb010Y48yIrMz180vL730ZcSnZCSVByFueJkzCbOFUhABnbxQXqF91ZohJJULNecUFAzKSA55LTpJj76R4u+851D1qmwi1g5hl8Mw7V4XHPnkI3fWZ1pwJ2LqtcX4mlTzUfyw/Z5AN/Qe+X+X6XjkdjlG9G0DMZlIvScfHWbiC19qob1g82wDU2GaAlk4cA=
+          on:
+            branch: main
+            tags: true

@@ -30,10 +30,10 @@ class MayaScriptEditorState (object):
         """
 
         if settings.UnitTestSettings().buffer_output:
-            cls.suppress_results = maya.cmds.scriptEditorInfo (query=True, suppressResults=True)
-            cls.suppress_errors = maya.cmds.scriptEditorInfo (query=True, suppressErrors=True)
-            cls.suppress_warnings = maya.cmds.scriptEditorInfo (query=True, suppressWarnings=True)
-            cls.suppress_info = maya.cmds.scriptEditorInfo (query=True, supressInfo=True)
+            cls.suppress_results = maya.cmds.scriptEditorInfo(query=True, suppressResults=True)
+            cls.suppress_errors = maya.cmds.scriptEditorInfo(query=True, suppressErrors=True)
+            cls.suppress_warnings = maya.cmds.scriptEditorInfo(query=True, suppressWarnings=True)
+            cls.suppress_info = maya.cmds.scriptEditorInfo(query=True, supressInfo=True)
             maya.cmds.scriptEditorInfo(
                 edit=True, suppressResults=True, suppressInfo=True, suppressWarnings=True, suppressErrors=True)
 
