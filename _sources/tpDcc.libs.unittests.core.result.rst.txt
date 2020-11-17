@@ -1,0 +1,7 @@
+tpDcc.libs.unittests.core.result module
+=======================================
+
+.. automodule:: tpDcc.libs.unittests.core.result
+   :members:
+   :undoc-members:
+   :show-inheritance:

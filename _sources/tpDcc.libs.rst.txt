@@ -1,0 +1,18 @@
+tpDcc.libs package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   tpDcc.libs.unittests
+
+Module contents
+---------------
+
+.. automodule:: tpDcc.libs
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+tpDcc.libs.unittests.core.unittestcase module
+=============================================
+
+.. automodule:: tpDcc.libs.unittests.core.unittestcase
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,22 @@
+tpDcc.libs.unittests.dccs.maya package
+======================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   tpDcc.libs.unittests.dccs.maya.result
+   tpDcc.libs.unittests.dccs.maya.scripteditor
+   tpDcc.libs.unittests.dccs.maya.settings
+   tpDcc.libs.unittests.dccs.maya.unittestcase
+   tpDcc.libs.unittests.dccs.maya.unittestlib
+
+Module contents
+---------------
+
+.. automodule:: tpDcc.libs.unittests.dccs.maya
+   :members:
+   :undoc-members:
+   :show-inheritance:

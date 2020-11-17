@@ -1,0 +1,7 @@
+tpDcc.libs.unittests.dccs.maya.scripteditor module
+==================================================
+
+.. automodule:: tpDcc.libs.unittests.dccs.maya.scripteditor
+   :members:
+   :undoc-members:
+   :show-inheritance:

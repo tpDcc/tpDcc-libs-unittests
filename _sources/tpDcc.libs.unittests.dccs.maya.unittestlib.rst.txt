@@ -1,0 +1,7 @@
+tpDcc.libs.unittests.dccs.maya.unittestlib module
+=================================================
+
+.. automodule:: tpDcc.libs.unittests.dccs.maya.unittestlib
+   :members:
+   :undoc-members:
+   :show-inheritance:
