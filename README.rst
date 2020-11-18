@@ -3,10 +3,25 @@ tpDcc-libs-unittests
 
 Library to manage unit tests in a DCC agnostic way.
 
-.. image:: https://travis-ci.com/tpDcc/tpDcc-libs-unittests.svg?branch=master&kill_cache=1
+.. image:: https://img.shields.io/badge/Python-2.7-yellow?logo=python
+    :target: https://www.python.org/
+
+.. image:: https://img.shields.io/badge/Python-3.7-yellow?logo=python
+    :target: https://www.python.org/
+
+.. image:: https://img.shields.io/badge/Maya-2018-green?logo=autodesk
+    :target: https://www.autodesk.com/
+
+.. image:: https://img.shields.io/badge/Maya-2019-green?logo=autodesk
+    :target: https://www.autodesk.com/
+
+.. image:: https://img.shields.io/badge/Maya-2020-green?logo=autodesk
+    :target: https://www.autodesk.com/
+
+.. image:: https://travis-ci.com/tpDcc/tpDcc-libs-unittests.svg?branch=main&kill_cache=1
     :target: https://travis-ci.com/tpDcc/tpDcc-libs-unittests
 
-.. image:: https://coveralls.io/repos/github/tpDcc/tpDcc-libs-unittests/badge.svg?branch=master&kill_cache=1
+.. image:: https://coveralls.io/repos/github/tpDcc/tpDcc-libs-unittests/badge.svg?branch=main&kill_cache=1
     :target: https://coveralls.io/github/tpDcc/tpDcc-libs-unittests?branch=master
 
 .. image:: https://img.shields.io/badge/docs-sphinx-orange
